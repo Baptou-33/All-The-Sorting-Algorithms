@@ -35,3 +35,24 @@ def selectionSort(t, n):
 First_list = []
 
 
+
+#Main code--------------------------------------------------------------------------------------------------------------
+if __name__ == "__main__":
+    # Inputs
+    default_value = 10000
+    number_of_data = input(f"Please enter the lenght of the random list to be sorted ('d' to put {default_value} from 0 to {default_value}) :\n")
+    if number_of_data == "d":
+        number_of_data = default_value
+        min_random = 0
+        max_random = default_value
+    else:
+        number_of_data = int(number_of_data)
+        min_random = int(input("Please enter the number min : "))
+        max_random = int(input("Please enter the number max : "))
+
+#Create a random list
+rng(First_list)
+
+selectionSort(First_list, number_of_data)
+print(First_list)
+print(check_list(First_list))
