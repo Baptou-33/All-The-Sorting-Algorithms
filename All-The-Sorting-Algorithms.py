@@ -44,10 +44,67 @@ def doubleSelectionSort(t, n):
         t[sup], t[n-1-i] = t[n-1-i], t[sup]
 
 
+#Bauble sort based algorithms
+def baubleSort(t, n):
+    for i in range(n):
+        isSwaped = False
+        for j in range(n-1-i):
+            if t[j] > t[j+1]:
+                t[j], t[j+1] = t[j+1], t[j]
+                isSwaped = True
+        if not isSwaped:
+            break
+
+def cocktailSort(t, n):
+    isSwapped = True
+    inf = 0
+    sup = n-1
+    while isSwapped:
+        isSwapped = False
+        for i in range(inf, sup):
+            if t[i] > t[i+1]:
+                t[i], t[i+1] = t[i+1], t[i]
+                isSwapped = True
+        if not isSwapped:
+            break
+        sup -= 1
+        isSwapped = False
+        for i in range(sup-1, inf-1, -1):
+            if t[i] > t[i+1]:
+                t[i], t[i+1] = t[i+1], t[i]
+                isSwapped = True
+        inf += 1
+
+def combSort(t, n):
+    isSwaped = True
+    gap = n
+    while isSwaped or gap != 1:
+        isSwaped = False
+        gap = max((gap * 10)//13, 1)
+        for i in range(n-gap):
+            if t[i] > t[i+gap]:
+                t[i], t[i+gap] = t[i+gap], t[i]
+                isSwaped = True
+
+def oddEvenSort(t, n):
+    isSwapped = True
+    while isSwapped:
+        isSwapped = False
+        temp = 0
+        for i in range(1, n-1, 2):
+            if t[i] > t[i+1]:
+                t[i], t[i+1] = t[i+1], t[i]
+                isSwapped = True
+        for i in range(0, n-1, 2):
+            if t[i] > t[i+1]:
+                t[i+1], t[i] = t[i], t[i+1]
+                isSwapped = True
+
+
 
 #Init code--------------------------------------------------------------------------------------------------------------
 #Sorting algorithm used
-algos = ["selectionSort", "doubleSelectionSort"]
+algos = ["selectionSort", "doubleSelectionSort", "baubleSort", "cocktailSort", "combSort", "oddEvenSort"]
 
 #One list for all the algorithms to be equal
 First_list = []
