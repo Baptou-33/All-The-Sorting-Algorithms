@@ -108,6 +108,8 @@ algos = ["selectionSort", "doubleSelectionSort", "baubleSort", "cocktailSort", "
 
 #One list for all the algorithms to be equal
 First_list = []
+#Init a list to show bests algos
+Bests_algos = [algos, [-1] * len(algos), [False] * len(algos)]
 
 #Time the sorting algorithm, test if the algorithm work, else, display the output
 def run(i):
@@ -121,7 +123,12 @@ def run(i):
     execution_time = end_time - start_time
     print(algos[i], execution_time)
 
-    if not check_list(list):
+    # Update Bests_algos
+    Bests_algos[1][i] = execution_time
+    if check_list(list):
+        Bests_algos[2][i] = True
+    else:
+        Bests_algos[2][i] = False
         print("\n", algos[i], "\nPour la liste initiale\t", First_list, "\nL'algorithme renvoie\t", list, "\n")
 
 
@@ -136,7 +143,6 @@ if __name__ == "__main__":
     else:
         number_of_data = int(number_of_data)
 
-
     #Create a random list
     rng(First_list)
 
@@ -144,3 +150,14 @@ if __name__ == "__main__":
     for i in range(len(algos)):
         print(i + 1, "/", len(algos), " : ", algos[i])
         run(i)
+
+    # Sort them to show the best at the top
+    cols = list(zip(*Bests_algos))
+    cols_sorted = sorted(cols, key=lambda col: col[1])
+    Bests_algos = [list(row) for row in zip(*cols_sorted)]
+
+    # Display bests algos
+    print("\n\n\nBests algorithms :\n")
+    max_len = max(len(name) for name in Bests_algos[0])
+    for i in range(len(algos)):
+        print(f"{Bests_algos[0][i]:<{max_len}}  {Bests_algos[1][i]}")
