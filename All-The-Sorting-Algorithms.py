@@ -102,9 +102,48 @@ def oddEvenSort(t, n):
 
 
 
+#Advanced sorting algorithms--------------------------------------------------------------------------------------------
+#Quicksort
+def partition(t, inf, sup): #Hoare partitionning
+    pivot = t[(inf + sup) // 2]
+    i = inf - 1
+    j = sup + 1
+
+    while True:
+        # Avance i
+        i += 1
+        while t[i] < pivot:
+            i += 1
+
+        # Recule j
+        j -= 1
+        while t[j] > pivot:
+            j -= 1
+
+        # Si les indices se croisent, on renvoie j
+        if i >= j:
+            return j
+
+        # Sinon on échange
+        t[i], t[j] = t[j], t[i]
+
+
+def quickSort2(t, inf, sup):
+    if inf < sup:
+        pi = partition(t, inf, sup)
+        quickSort2(t, inf, pi)
+        quickSort2(t, pi + 1, sup)
+
+def quickSort(t, n):
+    quickSort2(t, 0, n-1)
+
+
+
 #Init code--------------------------------------------------------------------------------------------------------------
 #Sorting algorithm used
-algos = ["selectionSort", "doubleSelectionSort", "baubleSort", "cocktailSort", "combSort", "oddEvenSort"]
+algos = ["selectionSort", "doubleSelectionSort",
+         "baubleSort", "cocktailSort", "combSort", "oddEvenSort",
+         "quickSort"]
 
 #One list for all the algorithms to be equal
 First_list = []
@@ -137,7 +176,7 @@ def run(i):
 if __name__ == "__main__":
     # Inputs
     default_value = 10000
-    number_of_data = input(f"Please enter the length of the random list to be sorted ('d' to put {default_value} from 0 to {default_value}) :\n")
+    number_of_data = input(f"Please enter the length of the random list to be sorted ('d' to put {default_value}) :\n")
     if number_of_data == "d":
         number_of_data = default_value
     else:
@@ -148,6 +187,7 @@ if __name__ == "__main__":
 
     # Test all the algorithms
     for i in range(len(algos)):
+        print()
         print(i + 1, "/", len(algos), " : ", algos[i])
         run(i)
 
